@@ -7,7 +7,7 @@ Your goal is to refactor the provided application, focusing on the following:
 
 - **Code Refactoring:**
   - Improve the overall quality, readability, and maintainability of the code.
-  - ** Apply Laravel best practices, design patterns, and standards suitable for enterprise-level applications.**
+  - **Apply Laravel best practices, design patterns, and standards suitable for enterprise-level applications.**
 
 - **Bug Fixing:**
   - Identify and fix any existing bugs.
