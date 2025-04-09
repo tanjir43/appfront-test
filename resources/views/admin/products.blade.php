@@ -76,7 +76,13 @@
                     <td>{{ $product->id }}</td>
                     <td>
                         @if($product->image)
-                            <img src="{{ env('APP_URL') }}/{{ $product->image }}" width="50" height="50" alt="{{ $product->name }}">
+                            @if(str_starts_with($product->image, 'http'))
+                                <img src="{{ $product->image }}" width="50" height="50" alt="{{ $product->name }}">
+                            @else
+                                <img src="{{ asset($product->image) }}" width="50" height="50" alt="{{ $product->name }}">
+                            @endif
+                        @else
+                            <img src="{{ asset('product-placeholder.jpg') }}" width="50" height="50" alt="{{ $product->name }}">
                         @endif
                     </td>
                     <td>{{ $product->name }}</td>
