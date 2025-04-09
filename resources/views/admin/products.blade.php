@@ -37,6 +37,11 @@
             margin-bottom: 20px;
             border-radius: 4px;
         }
+        .btn-lg {
+            padding: 12px 22px;
+            font-size: 16px;
+            margin-right: 10px;
+        }
 
     </style>
 </head>

@@ -20,18 +20,57 @@
             font-size: 1.2rem;
             color: #7f8c8d;
         }
+
+        /* New header styling */
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid #eee;
+        }
+
+        .login-button {
+            padding: 0.6rem 1.2rem;
+            background-color: #3498db;
+            color: white;
+            text-decoration: none;
+            border-radius: 4px;
+            font-weight: 500;
+            transition: background-color 0.3s;
+        }
+
+        .login-button:hover {
+            background-color: #2980b9;
+        }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>Products</h1>
+        <div class="header-container">
+            <h1>Products</h1>
+            @auth
+                <a href="{{route('admin.products')}}" class="login-button">Admin</a>
+            @else
+                <a href="{{route('login')}}" class="login-button">Login</a>
+            @endauth
+        </div>
 
         <div class="products-grid">
             @forelse ($products as $product)
                 <div class="product-card">
-                    @if ($product->image)
-                        <img src="{{ env('APP_URL') }}/{{ $product->image }}" class="product-image" alt="{{ $product->name }}">
+
+                    @if($product->image)
+                        @if(str_starts_with($product->image, 'http'))
+                            <img src="{{ $product->image }}"  class="product-image" alt="{{ $product->name }}">
+                        @else
+                            <img src="{{ asset($product->image) }}"  class="product-image" alt="{{ $product->name }}">
+                        @endif
+                    @else
+                        <img src="{{ asset('product-placeholder.jpg') }}"  class="product-image" alt="{{ $product->name }}">
                     @endif
+
                     <div class="product-info">
                         <h2 class="product-title">{{ $product->name }}</h2>
                         <p class="product-description">{{ Str::limit($product->description, 100) }}</p>
