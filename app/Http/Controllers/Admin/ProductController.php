@@ -2,35 +2,22 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Contracts\Services\ProductServiceInterface;
+use Illuminate\View\View;
 use App\Http\Controllers\Controller;
+use Illuminate\Http\RedirectResponse;
 use App\Http\Requests\Product\StoreProductRequest;
 use App\Http\Requests\Product\UpdateProductRequest;
-use Illuminate\Http\RedirectResponse;
-use Illuminate\View\View;
+use App\Contracts\Services\ProductServiceInterface;
 
 class ProductController extends Controller
 {
-    /**
-     * @var ProductServiceInterface
-     */
     protected ProductServiceInterface $productService;
 
-    /**
-     * AdminProductController constructor.
-     *
-     * @param ProductServiceInterface $productService
-     */
     public function __construct(ProductServiceInterface $productService)
     {
         $this->productService = $productService;
     }
 
-    /**
-     * Display a listing of products for admin.
-     *
-     * @return View
-     */
     public function index(): View
     {
         $products = $this->productService->getAllProducts();
@@ -38,22 +25,11 @@ class ProductController extends Controller
         return view('admin.products', compact('products'));
     }
 
-    /**
-     * Show the form for creating a new product.
-     *
-     * @return View
-     */
     public function create(): View
     {
         return view('admin.add_product');
     }
 
-    /**
-     * Store a newly created product.
-     *
-     * @param StoreProductRequest $request
-     * @return RedirectResponse
-     */
     public function store(StoreProductRequest $request): RedirectResponse
     {
         $validatedData = $request->validated();
@@ -66,12 +42,6 @@ class ProductController extends Controller
             ->with('success', 'Product added successfully');
     }
 
-    /**
-     * Show the form for editing a product.
-     *
-     * @param int $id
-     * @return View
-     */
     public function edit(int $id): View
     {
         $product = $this->productService->getProductById($id);
@@ -79,13 +49,6 @@ class ProductController extends Controller
         return view('admin.edit_product', compact('product'));
     }
 
-    /**
-     * Update the specified product.
-     *
-     * @param UpdateProductRequest $request
-     * @param int $id
-     * @return RedirectResponse
-     */
     public function update(UpdateProductRequest $request, int $id): RedirectResponse
     {
         $validatedData = $request->validated();
@@ -98,12 +61,6 @@ class ProductController extends Controller
             ->with('success', 'Product updated successfully');
     }
 
-    /**
-     * Remove the specified product.
-     *
-     * @param int $id
-     * @return RedirectResponse
-     */
     public function destroy(int $id): RedirectResponse
     {
         $this->productService->deleteProduct($id);

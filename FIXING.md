@@ -4,6 +4,8 @@
 
 ==> Architecture Improvements
 
+**PRICE_NOTIFICATION_EMAIL="test@gmail.com** On .env file for the email send 
+
 ```
 1) Add Admin Middleware
 
